@@ -13,4 +13,4 @@ eng.add_word("print", lambda: print(eng.stack.pop()))
 eng.exec('"test" print') # Will print "test"
 ```
 # License
-SLE is licensed under MIT License
+SLE is licensed under GPLv3 License
