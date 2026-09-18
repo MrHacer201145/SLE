@@ -10,15 +10,24 @@ class StackEngine:
     def del_word(self, name):
         del self.words[name]
 
-    def new_stack(self, name, content=[]):
+    def new_stack(self, name, content=[], create_api=False):
         self.__dict__[name] = content
+
+        if create_api:
+            self.__dict__[f'{name}_push'] = lambda val: self.__dict__[name].append(val)
+            self.__dict__[f'{name}_pop'] = lambda: self.__dict__[name].pop()
+
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        return self.stack.pop()
 
     @staticmethod
     def _parse(text):
         tokens = []
         token_spec = [
             ("STR", r'"[^"]*"'),
-            ("NUM", r'\d+(\.\d+)?'),
+            ("INT", r'\d+(\.\d+)?'),
             ("IDENT", r'[a-zA-Z_][a-zA-Z0-9_]*'),
             ("SKIP", r'[ \n\t]')
         ]
@@ -29,7 +38,7 @@ class StackEngine:
 
             if kind == "SKIP": continue
             elif kind == "STR": val = val[1:-1]
-            elif kind == "NUM": val = int(val)
+            elif kind == "INT": val = int(val)
             tokens.append((kind, val))
 
         return tokens
