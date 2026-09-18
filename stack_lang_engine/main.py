@@ -1,9 +1,15 @@
 import re
 
+
+class UndefinedWordError(BaseException):
+    "Exception for words that do not exist"
+
+
 class StackEngine:
-    def __init__(self, words={}, stack=[]):
+    def __init__(self, words={}, stack=[], undefined_error_msg=lambda word: f"Word '{word}' is not defined"):
         self.words = words
         self.stack = stack
+        self.error_msg = undefined_error_msg
 
     def add_word(self, name, func):
         self.words[name] = func
@@ -21,6 +27,8 @@ class StackEngine:
         self.stack.append(value)
     def pop(self):
         return self.stack.pop()
+    def clear(self):
+        self.stack.clear()
 
     @staticmethod
     def _parse(text):
@@ -44,6 +52,7 @@ class StackEngine:
         return tokens
 
     def exec(self, text):
+        "Interprets given string"
         words = self._parse(text)
 
         for word in words:
@@ -51,5 +60,7 @@ class StackEngine:
             if kind == "IDENT":
                 if val in self.words:
                     self.words[val]()
+                else:
+                    raise UndefinedWordError(self.error_msg(val))
             else:
                 self.stack.append(val)
