@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stack_lang_engine"
-version = "0.0.3"
-description = "An engine for creating stack-oriented DSLs or mini-programming languages."
+version = "0.0.4"
+description = "A zero-dependency, highly extensible engine for building stack-oriented DSLs and mini-languages."
 readme = "README.md"
 requires-python = ">=3.8"
 license = "GPL-3.0-or-later"
