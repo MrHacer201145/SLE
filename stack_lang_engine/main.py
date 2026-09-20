@@ -33,8 +33,8 @@ class StackEngine:
 
     def add_recognizer(self, name: str, pattern: str, on_regex: callable, on_interpret: callable) -> None:
         self.token_spec.insert(0, (name, pattern))
-        self.recognizers[name] = on_regex
-        self.regex_recognizers[name] = on_interpret
+        self.recognizers[name] = on_interpret
+        self.regex_recognizers[name] = on_regex
 
     def new_stack(self, name, content=[], create_api=False):
         self.__dict__[name] = content
