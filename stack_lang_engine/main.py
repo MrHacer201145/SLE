@@ -54,6 +54,8 @@ class StackEngine:
         return self.stack.pop()
     def clear(self) -> None:
         self.stack.clear()
+    def latest(self) -> any:
+        return self.stack[-1]
 
     def _parse(self, text: str) -> list[tuple[str, any]]:
         tokens = []
