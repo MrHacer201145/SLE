@@ -31,6 +31,11 @@ class StackEngine:
     def del_word(self, name: str) -> None:
         del self.words[name]
 
+    def reg_word(self, name):
+        def wrapper(func):
+            self.words[name] = func
+        return wrapper
+
     def add_recognizer(self, name: str, pattern: str, on_regex: callable, on_interpret: callable) -> None:
         self.token_spec.insert(0, (name, pattern))
         self.recognizers[name] = on_interpret
