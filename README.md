@@ -1,9 +1,26 @@
 # What is "Stack Lang Engine"
-SLE (Stack Lang Engine) is a simple tool for creating 
-stack-oriented DSL or even small programming languages.
+SLE (Stack Lang Engine) is a zero-dependency, 
+highly extensible engine for building stack-oriented DSLs and mini-languages.
+It was designed to be a lightweight module while offering a useful set of built-in functions.
 
-# Usage
-## Firstly
+# Quick Example
+```py
+import package.stack_lang_engine as sle
+
+eng = sle.StackEngine()
+
+@eng.reg_word("+")
+def add():
+    b = eng.pop()
+    a = eng.pop()
+    eng.push(a + b)
+
+eng.exec("10 20 +")
+print(eng.latest())
+```
+
+# Documentation
+## Import Module
 Of course we need to import a module, and create object with type
 "StackEngine"
 ```py
@@ -13,16 +30,20 @@ eng = sle.StackEngine()
 ```
 
 ## Definition of words:
-This is how to define/delete words in StackEngine
 ```py
 # Define new word
-eng.add_word("print", lambda: print(eng.pop()))
+@eng.reg_word("print")
+def print_pop():
+    print(eng.pop())
+
+# or
+# eng.add_word("print", lambda: print(eng.pop()))
 
 # Delete word
 eng.del_word("print")
 ```
 
-## How to execute text (given as string)
+## How to execute code (given as string)
 ```py
 # If you use the default regex pattern, 
 # it automatically recognizes whether it is a string or a number.
@@ -43,14 +64,6 @@ print(eng.stacky)
 eng.stacky_pop()
 ```
 
-## Usefull APIs
-```py
-# Instead of writing "eng.stack.pop" or more we can use builtin
-# methods like eng.(push, pop, clear)
-
-eng.push(10) # For example
-```
-
 ## Recognizers
 ```py
 # We can create a new regex pattern, 
@@ -68,21 +81,17 @@ eng.add_recognizer(
 # with "Test" kind
 
 eng.exec("Test 10 20")
-print(eng.stack) # It will work correctly, so in stack only 10 and 20
+print(eng.stack) # It will print [10, 20]
 ```
 
-## How to write more short code in this engine
+## Usefull APIs
 ```py
-# For example we can set words dict instead of creating each
-# word over and over
+# Instead of writing "eng.stack.pop" or more we can use builtin
+# methods like eng.(push, pop, clear, latest)
 
-eng = sle.StackEngine(words={
-    "print": lambda: print(eng.pop())
-})
-
-# You can also read the interpreter's code itself on 
-# GitHub to better understand how it works.
+eng.push(10) # For example
 ```
+
 ### Thanks for reading the documentation!
 
 # License
