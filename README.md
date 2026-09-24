@@ -5,7 +5,7 @@ It was designed to be a lightweight module while offering a useful set of built-
 
 # Quick Example
 ```py
-import package.stack_lang_engine as sle
+import stack_lang_engine as sle
 
 eng = sle.StackEngine()
 
