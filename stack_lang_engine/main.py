@@ -1,4 +1,5 @@
 import re
+from .configs import token_spec, regex_recognizers
 
 
 class UndefinedWordError(BaseException):
@@ -10,14 +11,9 @@ class StackEngine:
                 words={},
                 stack=[],
                 recognizers={},
-                regex_recognizers={},
+                regex_recognizers = regex_recognizers,
                 undefined_error_msg=lambda word: f"Word '{word}' is not defined",
-                token_spec = [
-                    ("STR", r'"[^"]*"'),
-                    ("INT", r'\d+(\.\d+)?'),
-                    ("IDENT", r'\S+'),
-                    ("SKIP", r'[ \n\t]')
-                ]
+                token_spec = token_spec
             ):
         self.words = words
         self.stack = stack
@@ -67,8 +63,6 @@ class StackEngine:
             if kind == "SKIP": continue
             elif kind in self.regex_recognizers:
                 val = self.regex_recognizers[kind](val)
-            elif kind == "STR": val = val[1:-1]
-            elif kind == "INT": val = int(val)
             tokens.append((kind, val))
 
         return tokens
