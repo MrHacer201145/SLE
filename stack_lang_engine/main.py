@@ -15,7 +15,7 @@ class StackEngine:
                 token_spec = [
                     ("STR", r'"[^"]*"'),
                     ("INT", r'\d+(\.\d+)?'),
-                    ("IDENT", r'[a-zA-Z_][a-zA-Z0-9_]*'),
+                    ("IDENT", r'\S+'),
                     ("SKIP", r'[ \n\t]')
                 ]
             ):
