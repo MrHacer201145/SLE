@@ -95,4 +95,4 @@ eng.push(10) # For example
 ### Thanks for reading the documentation!
 
 # License
-SLE is licensed under GPLv3 License
+SLE is licensed under GPL-3.0 License
